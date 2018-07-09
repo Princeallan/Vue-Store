@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import products from '../components/ProductList'
-import NavBar from '../components/NavBar'
+import home from '../components/home'
+import addproduct from '../components/AddProduct'
 
 Vue.use(Router);
 
@@ -9,13 +9,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'NavBar',
-      component: NavBar
+      name: 'home',
+      component: home
     },
       {
-        path: './products',
-          name: 'products',
-          component: products
+          path: 'addproduct',
+          name: 'addproduct',
+          component: addproduct
       }
   ]
 })

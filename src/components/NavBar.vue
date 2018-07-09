@@ -1,35 +1,55 @@
 <template>
-    <div class="app">
-        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-            <el-menu-item index="1">Vue Merchandise</el-menu-item>
-            <el-submenu index="2">
-                <template slot="title">Categories</template>
-                <el-menu-item index="2-1">Tees</el-menu-item>
-                <el-menu-item index="2-2">Hoodies</el-menu-item>
-                <el-menu-item index="2-3">Caps</el-menu-item>
-            </el-submenu>
-            <el-button type="text" @click="dialogFormVisible = true"> Login </el-button>
-        </el-menu>
-        <el-carousel :interval="4000" type="card" height="400px">
-            <el-carousel-item v-for="item in 6" :key="item">
-                <h3>{{ item }}</h3>
-            </el-carousel-item>
-        </el-carousel>
+    <div class="navbar">
+        <el-row>
+            <el-col :span="20">
+                <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+                    <el-menu-item index="1">Vue Merchandise</el-menu-item>
+                    <el-submenu index="2">
+                        <template slot="title">Categories</template>
+                        <el-menu-item index="2-1">Tees</el-menu-item>
+                        <el-menu-item index="2-2">Hoodies</el-menu-item>
+                        <el-menu-item index="2-3">Caps</el-menu-item>
+                    </el-submenu>
+                    <el-menu-item index="2"> <router-link :to="{name: 'addproduct'}">Add Product</router-link></el-menu-item>
+                </el-menu>
+            </el-col>
+            <el-col :span="4">
+                <el-button type="text" @click="loginFormVisible = true"> Login</el-button>
+                <el-button type="text" @click="signupFormVisible = true"> SignUp</el-button>
 
-        <!-- Form -->
-        <el-dialog title="Sign In " :visible.sync="dialogFormVisible">
-            <el-form :model="form">
+            </el-col>
+        </el-row>
+
+        <!--Login Form -->
+        <el-dialog title="Sign In " :visible.sync="loginFormVisible">
+            <el-form :model="user">
                 <el-form-item label="Username :" :label-width="formLabelWidth">
-                    <el-input v-model="form.name" auto-complete="off"></el-input>
+                    <el-input v-model="user.name" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="Password :" :label-width="formLabelWidth">
-                    <el-input v-model="form.password" auto-complete="off"></el-input>
+                    <el-input v-model="user.password" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogFormVisible = false">Back</el-button>
-    <el-button type="primary" @click="dialogFormVisible = false">Login</el-button>
-  </span>
+            <el-button @click="loginFormVisible = false">Back</el-button>
+            <el-button type="primary" @click="loginFormVisible = false">Login</el-button>
+          </span>
+        </el-dialog>
+
+        <!--Sign Up Form -->
+        <el-dialog title="Sign In " :visible.sync="signupFormVisible">
+            <el-form :model="user">
+                <el-form-item label="Username :" :label-width="formLabelWidth">
+                    <el-input v-model="user.name" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="Password :" :label-width="formLabelWidth">
+                    <el-input v-model="user.password" auto-complete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+            <el-button @click="signupFormVisible = false">Back</el-button>
+            <el-button type="primary" @click="signupFormVisible = false">Login</el-button>
+          </span>
         </el-dialog>
 
     </div>
@@ -38,26 +58,19 @@
 
 <script>
     export default {
+        name:'navbar',
         data() {
             return {
-                items:{
-                    image:'../assets/logo.png'
-                },
                 activeIndex: '1',
                 activeIndex2: '1',
-                dialogTableVisible: false,
-                dialogFormVisible: false,
-                form: {
+                loginFormVisible: false,
+                signupFormVisible:false,
+                user: {
                     name: '',
-                    region: '',
-                    date1: '',
-                    date2: '',
-                    delivery: false,
-                    type: [],
-                    resource: '',
-                    desc: ''
+                    password: ''
+
                 },
-                formLabelWidth: '100px'
+                formLabelWidth: '80px'
             };
         },
         methods: {
@@ -70,20 +83,30 @@
 </script>
 
 <style scoped>
-    .el-carousel__item h3 {
-        color: #475669;
-        font-size: 14px;
-        opacity: 0.75;
-        line-height: 200px;
-        margin: 0;
+
+    .bottom {
+        margin-top: 13px;
+        line-height: 10px;
     }
 
-    .el-carousel__item:nth-child(2n) {
-        background-color: #99a9bf;
+    .button {
+        padding: 0;
+        float: right;
     }
 
-    .el-carousel__item:nth-child(2n+1) {
-        background-color: #d3dce6;
+    .image {
+        width: 100%;
+        display: block;
+    }
+
+    .clearfix:before,
+    .clearfix:after {
+        display: table;
+        content: "";
+    }
+
+    .clearfix:after {
+        clear: both
     }
 
 </style>
