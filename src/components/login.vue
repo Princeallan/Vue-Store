@@ -1,5 +1,5 @@
 <template>
-
+<div>
     <form @submit.prevent="login({ email, password })">
         <input type="text" placeholder="email" v-model="email">
         <input type="password" placeholder="password" v-model="password">
@@ -7,6 +7,7 @@
         <!--<el-button type="submit" >Danger</el-button>-->
     </form>
 
+    </div>
 </template>
 <script>
     export default {

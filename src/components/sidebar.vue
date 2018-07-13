@@ -36,7 +36,7 @@
         </el-menu-item>
         <el-menu-item index="5" v-if="!isLoggedIn">
             <i class="el-icon-setting"></i>
-            <span><router-link to="/login">SignUp</router-link>
+            <span><router-link to="/signup">SignUp</router-link>
                 </span>
         </el-menu-item>
         <el-menu-item index="">

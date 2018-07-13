@@ -5,6 +5,7 @@ import addproduct from '../components/AddProduct'
 import productList from '../components/ProductList'
 import sidebar from '../components/sidebar'
 import Login from '../components/login'
+import signup from '../components/signUp'
 
 Vue.use(Router);
 
@@ -18,6 +19,10 @@ export default new Router({
         {
             path: '/login',
             component: Login
+        },
+        {
+            path: '/signup',
+            component: signup
         },
         {
             path: 'addproduct',
