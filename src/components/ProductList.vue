@@ -1,14 +1,15 @@
 <template>
     <el-row>
-        <el-col :span="4" v-for="(o, index) in 4" :key="o" :offset="index > 0 ? 1 : 1">
+        <!--<productslist></productslist>-->
+        <el-col :span="5" v-for="(product, index) in products" :key="index" :offset="index > 0 ? 1 : 1">
             <el-card :body-style="{ padding: '0px' }">
                 <img src="../assets/cap2.jpg" class="image">
                 <div style="padding: 14px;">
-                    <span>Vue Cap</span><br>
-                    <span>Caps</span><br>
-                    <span>Kshs 3000</span>
+                    <span>{{ product.name }} </span><br>
+                    <span>{{ product.category }}</span><br>
+                    <span> {{ product.inventory }} | {{ product.price }}</span>
                     <div class="bottom clearfix">
-                        <el-button type="text" class="button"> Buy </el-button>
+                        <el-button type="button" class="button" @click="addToCart(product, index)"> Buy</el-button>
                     </div>
                 </div>
             </el-card>
@@ -16,7 +17,42 @@
     </el-row>
 </template>
 
-<style scoped >
+<script>
+
+    export default {
+        data() {
+            return {
+                product: {
+                    name: '',
+                    category: '',
+                    price: '',
+                    inventory: ''
+                }
+            }
+        },
+        computed: {
+            products() {
+                return this.$store.getters.availableProducts
+            }
+        },
+        methods: {
+            addProduct: function () {
+                this.$store.dispatch('addProduct', this.product).then(() => {
+                    this.product = {};
+                });
+            },
+            addToCart: function (product, index) {
+                product.id = index;
+                console.log(index);
+                this.$store.dispatch('addToCart', product)
+            }
+        }
+
+    }
+
+</script>
+
+<style scoped>
 
     .bottom {
         margin-top: 13px;

@@ -1,84 +1,81 @@
 <template>
     <div id="addproduct">
-        <el-form v-model="product" >
-            <el-input type="text" placeholder="Product Name" v-model="product.name"></el-input>
-            <el-input type="text" placeholder="Category" v-model="product.category"></el-input>
-            <el-input type="number" placeholder="Price" v-model="product.price"></el-input>
-            <el-button type="button" @click="addProduct()" id="button">Add Product</el-button>
-        </el-form>
-
-        <el-col :span="4" v-for="(product, index) in getProducts" :key="product" :offset="index > 0 ? 1 : 1">
-            <el-card :body-style="{ padding: '0px' }">
-                <img src="../assets/cap2.jpg" class="image">
-                <div style="padding: 14px;">
-                    <span>{{ product.name }}</span><br>
-                    <span>{{ product.category }}</span><br>
-                    <span>{{ product.price }}</span>
-                    <div class="bottom clearfix">
-                        <el-button type="text" class="button"> Buy </el-button>
+        <el-row>
+            <el-form v-model="product">
+                <el-input type="text" placeholder="Product Name" required v-model="product.name"></el-input>
+                <el-input type="text" placeholder="Category" v-model="product.category"></el-input>
+                <el-input type="number" placeholder="Price" v-model="product.price"></el-input>
+                <el-input type="number" placeholder="Inventory" v-model="product.inventory"></el-input>
+                <el-button type="button" @click="addProduct()" id="button">Add Product</el-button>
+            </el-form>
+        </el-row>
+        <el-row>
+            <el-col :span="5" v-for="(product, index) in products" :key="index" :offset="index > 0 ? 1 : 1">
+                <el-card :body-style="{ padding: '0px' }">
+                    <img src="../assets/cap2.jpg" class="image">
+                    <div style="padding: 14px;">
+                        <span>{{ product.name }} </span><br>
+                        <span>{{ product.category }}</span><br>
+                        <span> {{ product.inventory }} | {{ product.price }}</span>
+                        <div class="bottom clearfix">
+                            <el-button type="button" class="button" @click="addToCart(product, index)"> Buy</el-button>
+                        </div>
                     </div>
-                </div>
-            </el-card>
-        </el-col>
-
-        <!--<div v-for="product in getProducts">{{ product.name }}</div>-->
-        <!--<div v-for="product in getProducts">{{ product.category }}</div>-->
-        <!--<div v-for="product in getProducts">{{ product.price }}</div>-->
+                </el-card>
+            </el-col>
+        </el-row>
     </div>
 </template>
 
 <script>
 
-    import navbar from './NavBar.vue'
-    import {mapGetters} from 'vuex'
+    // import navbar from './NavBar.vue'
+    // import {mapGetters} from 'vuex'
 
-export default {
-    name: 'AddProduct',
-    data () {
-        return{
+    export default {
+        name: 'AddProduct',
+        data() {
+            return {
                 product: {
-                    name:'',
-                    category:'',
-                    price:''
+                    name: '',
+                    category: '',
+                    price: '',
+                    inventory: ''
                 }
             }
-    },
-    computed: {
-        ...mapGetters({
-            products: 'products'
-        }),
+        },
+        computed: {
+            products() {
+                return this.$store.getters.availableProducts
+            }
 
-        getProducts(){
-            return this.products;
-
-        }
-        // getProducts(){
-        //     return this.$store.getters.products;
-        // }
-    },
-    components:{
-      navbar
-    },
-    methods: {
-        addProduct: function(){
-            this.$store.dispatch('addProduct', this.product).then(()=>{
-                this.product={};
-            });
-
+        },
+        methods: {
+            addProduct: function () {
+                this.$store.dispatch('addProduct', this.product).then(() => {
+                    this.product = {};
+                });
+            },
+            addToCart: function (product, index) {
+                product.id = index;
+                console.log(index);
+                this.$store.dispatch('addToCart', product)
+            }
         }
     }
-}
 
 </script>
 
 <style>
-    el-input{
+    el-input {
         width: 100%;
-
+        margin: 5px;
     }
-    form{
+
+    form {
         margin: auto 300px;
     }
+
     .bottom {
         margin-top: 13px;
         line-height: 12px;
