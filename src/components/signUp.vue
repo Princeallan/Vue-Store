@@ -5,7 +5,7 @@
             <el-input v-model="user.name"></el-input>
         </el-form-item>
         <el-form-item label="Email">
-            <el-input v-model="user.email"></el-input>
+            <el-input v-model="user.email" required></el-input>
         </el-form-item>
         <el-form-item label="Password" prop="pass">
             <el-input type="password" v-model="user.pass" auto-complete="off"></el-input>
@@ -13,8 +13,9 @@
         <el-form-item label="Confirm" prop="checkPass">
             <el-input type="password" v-model="user.checkPass" auto-complete="off"></el-input>
         </el-form-item>
+
         <el-form-item>
-            <el-button type="primary" @click="submitForm('user')">Submit</el-button>
+            <el-button type="primary" @click="addUser()">Submit</el-button>
             <el-button @click="resetForm('user')">Reset</el-button>
         </el-form-item>
     </el-form>
@@ -22,7 +23,7 @@
 
 <script>
     export default {
-        data(){
+        data() {
             let validatePass = (rule, value, callback) => {
                 if (value === '') {
                     callback(new Error('Please input the password'));
@@ -42,40 +43,34 @@
                     callback();
                 }
             };
-            return{
+            return {
                 user: {
                     name: '',
                     email: '',
-                    pass:''
-            },
+                    pass: ''
+                },
                 rules2: {
                     pass: [
-                        { validator: validatePass, trigger: 'blur' }
+                        {validator: validatePass, trigger: 'blur'}
                     ],
                     checkPass: [
-                        { validator: validatePass2, trigger: 'blur' }
-                    ],
-                    age: [
-                        { validator: checkAge, trigger: 'blur' }
+                        {validator: validatePass2, trigger: 'blur'}
                     ]
+                }}
+            },
+
+                methods:{
+                resetForm(user) {
+                    this.$refs[user].resetFields();
                 },
-                methods: {
-                    submitForm(user) {
-                        this.$refs[user].validate((valid) => {
-                            if (valid) {
-                                alert('submit!');
-                            } else {
-                                console.log('error submit!!');
-                                return false;
-                            }
-                        });
-                    },
-                    resetForm(user) {
-                        this.$refs[user].resetFields();
-                    }
+                addUser:function () {
+                    this.$store.dispatch('addUser', this.user).then(() => {
+                        this.user = {};
+                    });
                 }
+
             }
-        }
+
 
     }
 </script>
