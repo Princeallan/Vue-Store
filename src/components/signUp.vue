@@ -22,6 +22,7 @@
 </template>
 
 <script>
+    import firebase from 'firebase';
     export default {
         data() {
             let validatePass = (rule, value, callback) => {
@@ -64,8 +65,10 @@
                     this.$refs[user].resetFields();
                 },
                 addUser:function () {
-                    this.$store.dispatch('addUser', this.user).then(() => {
-                        this.user = {};
+                    // this.$store.dispatch('addUser', this.user).then(() => {
+                    //     this.user = {};
+                    // });
+                    firebase.auth().createUserWithEmailAndPassword(this.user.email, this.user.pass).then(() => {
                     });
                 }
 

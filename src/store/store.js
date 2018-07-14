@@ -94,17 +94,8 @@ export const store = new Vuex.Store({
             }
 
         },
-        login({state, commit, rootState}, creds) {
-            console.log("login...", creds);
-            commit(LOGIN); // show spinner
-            return new Promise(resolve => {
-                setTimeout(() => {
-                    localStorage.setItem("token", "JWT");
-                    commit(LOGIN_SUCCESS);
-                    resolve();
-                }, 1000);
-            });
-
+        login(state) {
+            state.commit('LOGIN_SUCCESS');
         },
         logout({
                    commit

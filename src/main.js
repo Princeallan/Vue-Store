@@ -5,6 +5,8 @@ import App from './App'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import {store} from "./store/store";
+import firebase from 'firebase';
+import './firebase_init';
 
 import ElementUI from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en';
@@ -18,12 +20,17 @@ Vue.use(BootstrapVue);
 
 
 Vue.config.productionTip = false;
-
-new Vue({
-    el: '#app',
-    router,
-    store,
-    components: {App},
-    template: '<App/>'
+let app;
+firebase.auth().onAuthStateChanged(function (user) {
+ if(!app){
+     new Vue({
+         el: '#app',
+         router,
+         store,
+         components: {App},
+         template: '<App/>'
+     });
+ }
 });
+
 

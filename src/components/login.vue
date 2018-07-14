@@ -3,13 +3,14 @@
     <form @submit.prevent="login({ email, password })">
         <input type="text" placeholder="email" v-model="email">
         <input type="password" placeholder="password" v-model="password">
-        <button type="submit" >Login</button>
+        <button type="submit" @click="login" >Login</button>
         <!--<el-button type="submit" >Danger</el-button>-->
     </form>
 
     </div>
 </template>
 <script>
+    import firebase from 'firebase';
     export default {
         data() {
             return {
@@ -19,12 +20,21 @@
         },
         methods: {
             login() {
-                this.$store.dispatch("login", {
-                    email: this.email,
-                    password: this.password
-                }).then(() => {
-                    this.$router.push("/")
-                });
+                // this.$store.dispatch("login", {
+                //     email: this.email,
+                //     password: this.password
+                // }).then(() => {
+                //     this.$router.push("/")
+                // });
+                let vm = this;
+                firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((resp) => {
+                    vm.$store.dispatch('login').then(()=>{
+                        vm.$router.push({name: "addproduct"});
+                    });
+
+                }).catch(error => {
+                    console.log(error.message);
+                })
             },
 
         },
