@@ -1,14 +1,14 @@
 <template>
 <div>
-    <el-col v-for="(product, index) in products" :key="index" :offset="index > 0 ? 1 : 1">
+    <el-col >
         <el-card :body-style="{ padding: '0px' }">
-            <div style="padding: 14px;">
-                <span>{{ product.name }} </span><br>
-                <span>{{ product.price }}</span><br>
+            <div style="padding: 14px;" v-for="(product, index) in products" :key="index" :offset="index > 0 ? 1 : 1">
+                <span>{{ product.name }} </span>
+                <span> $ {{ product.price }}</span>
                 <span> {{ product.quantity }}</span>
-                <div class="bottom clearfix">
-                    <el-button type="button" class="button"> {{total}} </el-button>
-                </div>
+            </div>
+            <div class="bottom clearfix">
+                <el-button> $ {{total}}</el-button>
             </div>
         </el-card>
     </el-col>
