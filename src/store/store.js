@@ -12,27 +12,29 @@ export const store = new Vuex.Store({
         products: [],
         isLoggedIn: !!localStorage.getItem("token"),
         cart: [],
-        users:[]
+        users: []
 
     },
     getters: {
         availableProducts(state, getters) {
             return state.products.filter(product => product.inventory > 0)
         },
+
         isLoggedIn: state => {
             return state.isLoggedIn
         },
-        cartProducts(state)
-        {
-            return state.cart.map(cartItem=>{
-                const product=state.products.find(product=>product.id===cartItem.id)
-                return{
+
+        cartProducts(state) {
+            return state.cart.map(cartItem => {
+                const product = state.products.find(product => product.id === cartItem.id)
+                return {
                     name: product.name,
                     price: product.price,
-                    quantity:cartItem.quantity,
+                    quantity: cartItem.quantity,
                 }
             })
         },
+
         cartTotal(state, getters) {
             //     let total = 0
             //     getters.cartProducts.forEach(product=>{
@@ -41,13 +43,17 @@ export const store = new Vuex.Store({
             //     return total
             return getters.cartProducts.reduce((total, product) => total + product.price * product.quantity, 0)
         },
-        registrations(state){
-            return state.registrations;
-        }
-        },
+        //
+        // registrations(state) {
+        //     return state.registrations;
+        // }
+    },
     mutations: {
         ADD_PRODUCT: (state, product) => {
             state.products.push(product)
+        },
+        ADD_USER: (state, user) => {
+            state.users.push(user)
         },
         [LOGIN](state) {
             state.pending = true;
@@ -58,9 +64,6 @@ export const store = new Vuex.Store({
         },
         [LOGOUT](state) {
             state.isLoggedIn = false;
-        },
-        ADD_USER:(state, user) => {
-            state.users.push(user)
         },
         pushProductToCart(state, productId) {
             state.cart.push({
@@ -73,13 +76,16 @@ export const store = new Vuex.Store({
         },
         decrementItemQuantity(state, product) {
             product.inventory--
+        },
+        deleteProduct(state, index){
+            state.cart.splice(index, 1)
         }
     },
     actions: {
         addProduct(store, newProduct) {
             store.commit("ADD_PRODUCT", newProduct);
         },
-        addUser(store, newUser){
+        addUser(store, newUser) {
             store.commit("ADD_USER", newUser);
         },
         addToCart(context, product) {
@@ -102,6 +108,10 @@ export const store = new Vuex.Store({
                }) {
             localStorage.removeItem("token");
             commit(LOGOUT);
+        },
+
+        removeFromCart(context, index){
+            context.commit('deleteProduct', index)
         }
     },
 });

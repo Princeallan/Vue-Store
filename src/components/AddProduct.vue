@@ -14,11 +14,11 @@
                 <el-card :body-style="{ padding: '0px' }">
                     <img src="../assets/cap2.jpg" class="image">
                     <div style="padding: 14px;">
-                        <span>{{ product.name }} </span><br>
+                        <span style="color: #880000">{{ product.name }} </span><br>
                         <span>{{ product.category }}</span><br>
                         <span> {{ product.inventory }} | {{ product.price }}</span>
                         <div class="bottom clearfix">
-                            <el-button type="button" class="button" @click="addToCart(product, index)"> Buy</el-button>
+                            <el-button type="button primary"  @click="addToCart(product, index)"> Buy</el-button>
                         </div>
                     </div>
                 </el-card>
@@ -28,9 +28,6 @@
 </template>
 
 <script>
-
-    // import navbar from './NavBar.vue'
-    // import {mapGetters} from 'vuex'
 
     export default {
         name: 'AddProduct',
@@ -56,11 +53,13 @@
                     this.product = {};
                 });
             },
+
             addToCart: function (product, index) {
                 product.id = index;
-                console.log(index);
+                // console.log(index);
                 this.$store.dispatch('addToCart', product)
-            }
+            },
+
         }
     }
 

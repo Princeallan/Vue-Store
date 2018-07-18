@@ -9,7 +9,7 @@
                     <span>{{ product.category }}</span><br>
                     <span> {{ product.inventory }} | $ {{ product.price }}</span>
                     <div class="bottom clearfix">
-                        <el-button type="prmary" class="button" @click="addToCart(product, index)"> Buy</el-button>
+                        <el-button type="prmary" @click="addToCart(product, index)"> Buy</el-button>
                         <!--<el-button > Buy</el-button>-->
                     </div>
                 </div>

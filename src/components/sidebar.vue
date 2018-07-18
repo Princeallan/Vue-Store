@@ -45,7 +45,8 @@
     </el-menu>
 </template>
 <script>
-import shoppingCart from './ShoppingCart'
+    import shoppingCart from './ShoppingCart'
+
     export default {
         methods: {
             logout: function () {
@@ -59,7 +60,7 @@ import shoppingCart from './ShoppingCart'
             }
             // ...Vuex.mapActions(["logout"])
         },
-        components:{
+        components: {
             shoppingCart
         },
         computed: {
