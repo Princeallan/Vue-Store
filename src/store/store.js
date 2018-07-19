@@ -36,17 +36,10 @@ export const store = new Vuex.Store({
         },
 
         cartTotal(state, getters) {
-            //     let total = 0
-            //     getters.cartProducts.forEach(product=>{
-            //         total +=product.price*product.quantity
-            // });
-            //     return total
+
             return getters.cartProducts.reduce((total, product) => total + product.price * product.quantity, 0)
         },
-        //
-        // registrations(state) {
-        //     return state.registrations;
-        // }
+
     },
     mutations: {
         ADD_PRODUCT: (state, product) => {
@@ -77,7 +70,7 @@ export const store = new Vuex.Store({
         decrementItemQuantity(state, product) {
             product.inventory--
         },
-        deleteProduct(state, index){
+        deleteProduct(state, index) {
             state.cart.splice(index, 1)
         }
     },
@@ -85,9 +78,11 @@ export const store = new Vuex.Store({
         addProduct(store, newProduct) {
             store.commit("ADD_PRODUCT", newProduct);
         },
+
         addUser(store, newUser) {
             store.commit("ADD_USER", newUser);
         },
+
         addToCart(context, product) {
             if (product.inventory > 0) {
                 const cartItem = context.state.cart.find(item => item.id === product.id);
@@ -100,6 +95,7 @@ export const store = new Vuex.Store({
             }
 
         },
+
         login(state) {
             state.commit('LOGIN_SUCCESS');
         },
@@ -110,7 +106,7 @@ export const store = new Vuex.Store({
             commit(LOGOUT);
         },
 
-        removeFromCart(context, index){
+        removeFromCart(context, index) {
             context.commit('deleteProduct', index)
         }
     },

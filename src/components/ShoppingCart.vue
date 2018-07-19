@@ -35,7 +35,7 @@
         methods: {
             removeProductFromCart(index) {
                 this.$store.dispatch('removeFromCart', index);
-           
+
             }
         }
     }

@@ -36,12 +36,14 @@
                 return this.$store.getters.availableProducts
             }
         },
+
         methods: {
             addProduct: function () {
                 this.$store.dispatch('addProduct', this.product).then(() => {
                     this.product = {};
                 });
             },
+
             addToCart: function (product, index) {
                 product.id = index;
                 console.log(index);

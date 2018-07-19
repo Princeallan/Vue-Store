@@ -68,7 +68,7 @@
 <style>
     el-input {
         width: 100%;
-        margin: 5px;
+        margin-top: 10px;
     }
 
     form {
