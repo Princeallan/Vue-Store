@@ -1,24 +1,28 @@
 <template>
+    <el-card class="box-card">
+        <div slot="header" class="clearfix">
+            <span style="line-height: 36px;">Sign Up</span>
+        </div>
+        <el-form label-width="50px" :model="user" status-icon :rules="rules2">
+            <el-form-item >
+                <el-input v-model="user.name" placeholder="John Doe"></el-input>
+            </el-form-item>
+            <el-form-item >
+                <el-input v-model="user.email" placeholder="Email@example.com" required></el-input>
+            </el-form-item>
+            <el-form-item  prop="pass">
+                <el-input placeholder="secret" type="password" v-model="user.pass" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item prop="checkPass">
+                <el-input type="password" placeholder="Confirm password" v-model="user.checkPass" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="addUser()">Submit</el-button>
+                <el-button @click="resetForm('user')">Reset</el-button>
+            </el-form-item>
+        </el-form>
 
-    <el-form label-width="50px" :model="user" status-icon :rules="rules2">
-            <el-form-item label="Name">
-                <el-input v-model="user.name"></el-input>
-            </el-form-item>
-            <el-form-item label="Email">
-                <el-input v-model="user.email" required></el-input>
-            </el-form-item>
-
-            <el-form-item label="Password" prop="pass">
-                <el-input type="password" v-model="user.pass" auto-complete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="Confirm" prop="checkPass">
-                <el-input type="password" v-model="user.checkPass" auto-complete="off"></el-input>
-            </el-form-item>
-        <el-form-item>
-            <el-button type="primary" @click="addUser()">Submit</el-button>
-            <el-button @click="resetForm('user')">Reset</el-button>
-        </el-form-item>
-    </el-form>
+    </el-card>
 </template>
 
 <script>
@@ -69,6 +73,8 @@
                     //     this.user = {};
                     // });
                     firebase.auth().createUserWithEmailAndPassword(this.user.email, this.user.pass).then(() => {
+
+
                     });
                 }
 
@@ -77,3 +83,21 @@
 
     }
 </script>
+
+<style>
+
+    .clearfix:before,
+    .clearfix:after {
+        display: table;
+        content: "";
+    }
+    .clearfix:after {
+        clear: both
+    }
+
+    .box-card {
+        margin-left: 80px;
+        width: 480px;
+    }
+
+</style>

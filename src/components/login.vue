@@ -1,17 +1,27 @@
 <template>
-<div>
-    <form @submit.prevent="login({ email, password })">
-        <input type="text" placeholder="email" v-model="email">
-        <input type="password" placeholder="password" v-model="password">
-        <button type="submit" @click="login" >Login</button>
-        <!--<el-button type="submit" >Danger</el-button>-->
-    </form>
 
-    </div>
+    <el-card class="box-card">
+        <div slot="header" class="clearfix">
+            <span style="line-height: 36px;">Login</span>
+        </div>
+    <el-form @submit.prevent="login({ email, password })">
+        <el-form-item>
+        <el-input type="text" placeholder="Email" v-model="email"></el-input>
+        </el-form-item>
+        <el-form-item>
+        <el-input type="password" placeholder="Secret" v-model="password"></el-input>
+        </el-form-item>
+        <!--<button type="submit" @click="login" >Login</button>-->
+        <el-button type="submit" @click="login">Login</el-button>
+    </el-form>
+    </el-card>
+
 </template>
 <script>
     import firebase from 'firebase';
+
     export default {
+        name: 'login',
         data() {
             return {
                 email: "",
@@ -41,28 +51,24 @@
     }
 
 </script>
-<style scoped>
-    a {
-        font-size: 17px;
-        color: #fff;
-        background: grey;
-        padding: 10px;
-        text-decoration: none;
-        margin-right: 0.5rem;
-        margin-bottom: 20px;
-        display: inline-block;
+<style>
+
+
+    .clearfix:before,
+    .clearfix:after {
+        display: table;
+        content: "";
+    }
+    .clearfix:after {
+        clear: both
+    }
+    el-input{
+
     }
 
-    * {
-        font-family: Arial;
-    }
-
-    input, button {
-        width: 100%;
-        padding: 8px;
-        font-size: 20px;
-        border-radius: 10px;
-        margin: 5px;
+    .box-card {
+        margin-left: 80px;
+        width: 480px;
     }
 
 </style>

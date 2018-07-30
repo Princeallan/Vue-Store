@@ -1,12 +1,22 @@
 <template>
     <div id="addproduct">
-        <el-row>
-            <el-form v-model="product">
-                <el-input type="text" placeholder="Product Name" required v-model="product.name"></el-input>
-                <el-input type="text" placeholder="Category" v-model="product.category"></el-input>
-                <el-input type="number" placeholder="Price" v-model="product.price"></el-input>
-                <el-input type="number" placeholder="Inventory" v-model="product.inventory"></el-input>
-                <el-button type="button" @click="addProduct()" id="button">Add Product</el-button>
+        <el-row >
+            <el-form :span="16" v-model="product" label-width="120px">
+                <el-form-item>
+                    <el-input type="text" placeholder="Product Name" required v-model="product.name"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-input type="text" placeholder="Category" v-model="product.category"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-input type="number" placeholder="Price" v-model="product.price"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-input type="number" placeholder="Inventory" v-model="product.inventory"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="addProduct()" id="button">Add Product</el-button>
+                </el-form-item>
             </el-form>
         </el-row>
         <el-row>
@@ -71,19 +81,12 @@
         margin-top: 10px;
     }
 
-    form {
-        margin: auto 300px;
-    }
 
     .bottom {
         margin-top: 13px;
         line-height: 12px;
     }
 
-    .button {
-        padding: 0;
-        float: right;
-    }
 
     .image {
         width: 100%;
