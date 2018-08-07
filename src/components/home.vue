@@ -22,6 +22,7 @@
     import slider from './slider'
     import ProductList from './ProductList'
     import sidebar from './sidebar'
+    import signup from './signUp'
 
     export default {
         name: 'home',
@@ -31,6 +32,7 @@
             slider,
             ProductList,
             sidebar,
+            signup
         }
     }
 

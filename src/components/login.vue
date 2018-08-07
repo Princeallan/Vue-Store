@@ -1,20 +1,23 @@
 <template>
-
-    <el-card class="box-card">
+<div :span="6" :offset="6">
+    <el-card class="box-card" >
         <div slot="header" class="clearfix">
             <span style="line-height: 36px;">Login</span>
         </div>
-    <el-form @submit.prevent="login({ email, password })">
-        <el-form-item>
-        <el-input type="text" placeholder="Email" v-model="email"></el-input>
-        </el-form-item>
-        <el-form-item>
-        <el-input type="password" placeholder="Secret" v-model="password"></el-input>
-        </el-form-item>
-        <!--<button type="submit" @click="login" >Login</button>-->
-        <el-button type="submit" @click="login">Login</el-button>
-    </el-form>
+        <el-form @submit.prevent="login({ email, password })" :offset="6">
+            <el-form-item>
+                <el-input type="text" placeholder="Email" v-model="email"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-input type="password" placeholder="Secret" v-model="password"></el-input>
+            </el-form-item>
+            <!--<button type="submit" @click="login" >Login</button>-->
+            <el-button type="submit" @click="login">Login</el-button> Or create an account
+            <el-button type="button"><span><router-link to="/signup">SignUp</router-link></span></el-button>
+        </el-form>
     </el-card>
+
+</div>
 
 </template>
 <script>

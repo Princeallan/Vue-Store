@@ -7,7 +7,7 @@
                 <div style="padding: 14px;">
                     <span>{{ product.name }} </span><br>
                     <span>{{ product.category }}</span><br>
-                    <span> {{ product.inventory }} | $ {{ product.price }}</span>
+                    <span> {{ product.quantity }} | $ {{ product.price }}</span>
                     <div class="bottom clearfix">
                         <el-button type="prmary" @click="addToCart(product, index)"> Buy</el-button>
                         <!--<el-button > Buy</el-button>-->
@@ -27,7 +27,7 @@
                     name: '',
                     category: '',
                     price: '',
-                    inventory: ''
+                    quantity: ''
                 }
             }
         },

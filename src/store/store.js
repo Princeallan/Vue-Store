@@ -16,8 +16,8 @@ export const store = new Vuex.Store({
 
     },
     getters: {
-        availableProducts(state, getters) {
-            return state.products.filter(product => product.inventory > 0)
+        availableProducts(state) {
+            return state.products.filter(product => product.quantity > 0)
         },
 
         isLoggedIn: state => {
@@ -68,7 +68,7 @@ export const store = new Vuex.Store({
             cartItem.quantity++
         },
         decrementItemQuantity(state, product) {
-            product.inventory--
+            product.quantity--
         },
         deleteProduct(state, index) {
             state.cart.splice(index, 1)
@@ -84,14 +84,14 @@ export const store = new Vuex.Store({
         },
 
         addToCart(context, product) {
-            if (product.inventory > 0) {
+            if (product.quantity > 0) {
                 const cartItem = context.state.cart.find(item => item.id === product.id);
                 if (!cartItem) {
                     context.commit('pushProductToCart', product.id)
                 } else {
                     context.commit('incrementItemQuantity', cartItem)
                 }
-                context.commit('decrementProductInventory', product)
+                context.commit('decrementItemQuantity', product)
             }
 
         },

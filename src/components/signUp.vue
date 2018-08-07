@@ -17,8 +17,8 @@
                 <el-input type="password" placeholder="Confirm password" v-model="user.checkPass" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="addUser()">Submit</el-button>
-                <el-button @click="resetForm('user')">Reset</el-button>
+                <el-button type="primary" @click="addUser()">Submit</el-button> Or back to
+                <el-button ><span><router-link to="/login">Login</router-link></span></el-button>
             </el-form-item>
         </el-form>
 
@@ -64,10 +64,7 @@
                 }}
             },
 
-                methods:{
-                resetForm(user) {
-                    this.$refs[user].resetFields();
-                },
+        methods:{
                 addUser:function () {
                     // this.$store.dispatch('addUser', this.user).then(() => {
                     //     this.user = {};

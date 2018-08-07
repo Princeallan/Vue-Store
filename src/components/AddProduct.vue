@@ -1,7 +1,7 @@
 <template>
     <div id="addproduct">
         <el-row >
-            <el-form :span="16" v-model="product" label-width="120px">
+            <el-form v-model="product" label-width="200px">
                 <el-form-item>
                     <el-input type="text" placeholder="Product Name" required v-model="product.name"></el-input>
                 </el-form-item>
@@ -12,27 +12,12 @@
                     <el-input type="number" placeholder="Price" v-model="product.price"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input type="number" placeholder="Inventory" v-model="product.inventory"></el-input>
+                    <el-input type="number" placeholder="Quantity" v-model="product.quantity"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="addProduct()" id="button">Add Product</el-button>
                 </el-form-item>
             </el-form>
-        </el-row>
-        <el-row>
-            <el-col :span="5" v-for="(product, index) in products" :key="index" :offset="index > 0 ? 1 : 1">
-                <el-card :body-style="{ padding: '0px' }">
-                    <img src="../assets/cap2.jpg" class="image">
-                    <div style="padding: 14px;">
-                        <span style="color: #880000">{{ product.name }} </span><br>
-                        <span>{{ product.category }}</span><br>
-                        <span> {{ product.inventory }} | {{ product.price }}</span>
-                        <div class="bottom clearfix">
-                            <el-button type="button primary"  @click="addToCart(product, index)"> Buy</el-button>
-                        </div>
-                    </div>
-                </el-card>
-            </el-col>
         </el-row>
     </div>
 </template>
@@ -40,22 +25,15 @@
 <script>
 
     export default {
-        name: 'AddProduct',
         data() {
             return {
                 product: {
                     name: '',
                     category: '',
                     price: '',
-                    inventory: ''
+                    quantity: ''
                 }
             }
-        },
-        computed: {
-            products() {
-                return this.$store.getters.availableProducts
-            }
-
         },
         methods: {
             addProduct: function () {
