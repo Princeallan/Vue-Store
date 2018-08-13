@@ -29,6 +29,13 @@
             <i class="el-icon-menu"></i>
             <span>Brands</span>
         </el-menu-item>
+        <el-menu-item index="">
+            <shoppingCart></shoppingCart>
+        </el-menu-item>
+        <el-menu-item index="">
+            <AddProduct></AddProduct>
+        </el-menu-item>
+
         <el-menu-item index="4">
             <i class="el-icon-setting"></i>
             <span><router-link to="/login" v-if="!isLoggedIn">Login</router-link>
@@ -40,18 +47,17 @@
             <span><router-link to="/signup">SignUp</router-link>
                 </span>
         </el-menu-item>
-        <el-menu-item index="">
-            <shoppingCart></shoppingCart>
-        </el-menu-item>
     </el-menu>
 </template>
 <script>
     import shoppingCart from './ShoppingCart'
+    import AddProduct from './AddProduct'
 
     export default {
         methods: {
             logout: function () {
                 this.$store.dispatch('logout');
+                this.$router.push("/")
             },
             handleOpen(key, keyPath) {
                 console.log(key, keyPath);
@@ -62,7 +68,8 @@
             // ...Vuex.mapActions(["logout"])
         },
         components: {
-            shoppingCart
+            shoppingCart,
+            AddProduct
         },
         computed: {
             isLoggedIn() {

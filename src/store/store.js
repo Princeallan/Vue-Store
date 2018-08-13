@@ -12,7 +12,8 @@ export const store = new Vuex.Store({
         products: [],
         isLoggedIn: !!localStorage.getItem("token"),
         cart: [],
-        users: []
+        users: [],
+        checkout: null
 
     },
     getters: {
@@ -72,6 +73,12 @@ export const store = new Vuex.Store({
         },
         deleteProduct(state, index) {
             state.cart.splice(index, 1)
+        },
+        setCheckoutStatus(state, status) {
+            state.CheckoutStatus = status
+        },
+        emptyCart(state){
+            state.cart = []
         }
     },
     actions: {
@@ -108,6 +115,19 @@ export const store = new Vuex.Store({
 
         removeFromCart(context, index) {
             context.commit('deleteProduct', index)
+        },
+        checkout({state, commit}) {
+            shop.buyProducts(
+                state.cart,
+                () => {
+                    commit('emptyCart')
+                    commit('setCheckoutStatus', 'success')
+                },
+                () => {
+                    commit('setCheckoutStatus', 'fail')
+
+                }
+            )
         }
     },
 });

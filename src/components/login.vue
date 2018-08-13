@@ -1,12 +1,12 @@
 <template>
-<div :span="6" :offset="6">
+<div >
     <el-card class="box-card" >
         <div slot="header" class="clearfix">
             <span style="line-height: 36px;">Login</span>
         </div>
         <el-form @submit.prevent="login({ email, password })" :offset="6">
             <el-form-item>
-                <el-input type="text" placeholder="Email" v-model="email"></el-input>
+                <el-input type="text" placeholder="Email" onautocomplete="false" v-model="email"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-input type="password" placeholder="Secret" v-model="password"></el-input>
@@ -42,7 +42,7 @@
                 let vm = this;
                 firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((resp) => {
                     vm.$store.dispatch('login').then(()=>{
-                        vm.$router.push({name: "addproduct"});
+                        vm.$router.push({name: "productList"});
                     });
 
                 }).catch(error => {

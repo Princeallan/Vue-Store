@@ -1,7 +1,9 @@
 <template>
     <div id="addproduct">
-        <el-row >
-            <el-form v-model="product" label-width="200px">
+            <el-button type="text" @click="dialogTableVisible = true"><i class="el-icon-goods"></i> Add Product</el-button>
+
+        <el-dialog title="Add Products" :visible.sync="dialogTableVisible">
+            <el-form v-model="product" >
                 <el-form-item>
                     <el-input type="text" placeholder="Product Name" required v-model="product.name"></el-input>
                 </el-form-item>
@@ -18,7 +20,10 @@
                     <el-button type="primary" @click="addProduct()" id="button">Add Product</el-button>
                 </el-form-item>
             </el-form>
-        </el-row>
+
+        </el-dialog>
+        <!--<el-row>-->
+        <!--</el-row>-->
     </div>
 </template>
 
@@ -32,7 +37,8 @@
                     category: '',
                     price: '',
                     quantity: ''
-                }
+                },
+                dialogTableVisible: false
             }
         },
         methods: {
@@ -59,12 +65,10 @@
         margin-top: 10px;
     }
 
-
     .bottom {
         margin-top: 13px;
         line-height: 12px;
     }
-
 
     .image {
         width: 100%;

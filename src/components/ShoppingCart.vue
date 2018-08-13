@@ -33,7 +33,9 @@
                     </table>
                 </div>
                 <div class="bottom clearfix">
-                    <div style="color: #0c5460">Payable Grand Total Kshs. {{total | formatPrice}}</div>
+                    <div style="color: #0c5460"><p>Payable Grand Total Kshs. {{total | formatPrice}}</p></div>
+                    <button class="btn btn-danger pull-right" @click="checkout" > Checkout </button>
+                    <!--<p v-if="CheckoutStatus">{{ CheckoutStatus }}</p>-->
                 </div>
 
             </el-dialog>
@@ -43,7 +45,7 @@
 </template>
 <script>
 
-    import {mapGetters} from 'vuex'
+    import {mapState, mapGetters, mapActions} from 'vuex'
 
     export default {
         data() {
@@ -53,23 +55,26 @@
             }
         },
         computed: {
-            // ...mapGetters({
-            //     cartProducts : 'cartProducts'
-            // }),
-            products() {
-                return this.$store.getters.cartProducts
-            },
-            total() {
-                return this.$store.getters.cartTotal
-            },
-            totalProductsInCart() {
-                return this.$store.getters.cartProducts.length
-            }
+            ...mapGetters({
+                products : 'cartProducts',
+                total : 'cartTotal'
+            }),
+            ...mapState({
+                checkoutStatus: 'checkoutStatus'
+            })
+            // products() {
+            //     return this.$store.getters.cartProducts
+            // },
+
         },
         methods: {
+            // ...mapActions(['checkout']),
             removeProductFromCart(index) {
                 this.$store.dispatch('removeFromCart', index);
 
+            },
+            checkout(){
+                alert('Pay us Kshs ' + this.total)
             }
         },
         filters: {
@@ -78,7 +83,7 @@
             }
         },
         watch: {
-            // this.totalProductsInCart();
+            
         }
     }
 

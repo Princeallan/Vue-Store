@@ -5,22 +5,10 @@
             <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
             <b-navbar-brand href="#">
-              VUE MERCHANDISE
+                    <router-link :to="{name: 'productList'}">VUE MERCHANDISE</router-link>
             </b-navbar-brand>
 
             <b-collapse is-nav id="nav_collapse">
-
-                <b-navbar-nav v-if="isLoggedIn">
-                    <b-nav-item href="#">
-                        <router-link :to="{name: 'productList'}">Products Listing</router-link>
-                    </b-nav-item>
-                </b-navbar-nav>
-
-                <b-navbar-nav v-if="isLoggedIn">
-                    <b-nav-item href="#">
-                        <router-link :to="{name: 'addproduct'}">Add Product</router-link>
-                    </b-nav-item>
-                </b-navbar-nav>
 
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">

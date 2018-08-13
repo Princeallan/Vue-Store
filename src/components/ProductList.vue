@@ -1,6 +1,5 @@
 <template>
     <el-row>
-        <!--<productslist></productslist>-->
         <el-col :span="5" v-for="(product, index) in products" :key="index" :offset="index > 0 ? 1 : 1">
             <el-card :body-style="{ padding: '0px' }">
                 <img src="../assets/cap2.jpg" class="image">
@@ -9,8 +8,7 @@
                     <span>{{ product.category }}</span><br>
                     <span> {{ product.quantity }} | $ {{ product.price }}</span>
                     <div class="bottom clearfix">
-                        <el-button type="prmary" @click="addToCart(product, index)"> Buy</el-button>
-                        <!--<el-button > Buy</el-button>-->
+                        <el-button type="primary" @click="addToCart(product, index)"> Buy</el-button>
                     </div>
                 </div>
             </el-card>
@@ -19,6 +17,8 @@
 </template>
 
 <script>
+
+    import {mapGetters} from 'vuex'
 
     export default {
         data() {
@@ -32,9 +32,13 @@
             }
         },
         computed: {
-            products() {
-                return this.$store.getters.availableProducts
-            }
+            ...mapGetters({
+                products: 'availableProducts',
+
+            }),
+            // products() {
+            //     return this.$store.getters.availableProducts
+            // }
         },
 
         methods: {
@@ -49,7 +53,7 @@
                 console.log(index);
                 this.$store.dispatch('addToCart', product)
             }
-        }
+        },
 
     }
 
