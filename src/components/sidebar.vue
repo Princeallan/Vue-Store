@@ -30,12 +30,11 @@
             <span>Brands</span>
         </el-menu-item>
         <el-menu-item index="">
-            <shoppingCart></shoppingCart>
-        </el-menu-item>
-        <el-menu-item index="">
             <AddProduct></AddProduct>
         </el-menu-item>
-
+        <el-menu-item index="">
+            <shoppingCart></shoppingCart>
+        </el-menu-item>
         <el-menu-item index="4">
             <i class="el-icon-setting"></i>
             <span><router-link to="/login" v-if="!isLoggedIn">Login</router-link>

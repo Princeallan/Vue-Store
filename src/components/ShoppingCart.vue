@@ -2,7 +2,7 @@
     <div>
         <el-col>
 
-            <el-badge class="badge" :value="products.length">
+            <el-badge class="badge" :value="cartProducts.length">
                 <el-button type="text" @click="dialogTableVisible = true"><i class="el-icon-goods"></i> Cart</el-button>
             </el-badge>
             <el-dialog title="My Shopping Cart" :visible.sync="dialogTableVisible">
@@ -14,17 +14,23 @@
                             <th>Name</th>
                             <th>Unit Price</th>
                             <th>Quantity</th>
+                            <th>+/-</th>
                             <th>Total Price</th>
                             <th width="50px">Remove</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr :data="products" style="padding: 14px;" v-for="(product, index) in products" :key="index"
+                        <tr :data="cartProducts" style="padding: 14px;" v-for="(cartProduct, index) in cartProducts" :key="index"
                             :offset="index > 0 ? 1 : 1">
-                            <td property="name">{{ product.name }}</td>
-                            <td property="category">{{ product.price }}</td>
-                            <td property="quantity">{{ product.quantity }}</td>
-                            <td>{{ product.price * product.quantity | formatPrice }}</td>
+                            <td property="name">{{ cartProduct.name }}</td>
+                            <td property="category">{{ cartProduct.price }}</td>
+                            <td property="quantity">{{ cartProduct.quantity }}</td>
+                            <td>
+                                <!--<el-button type="primary" icon="el-icon-remove-outline" circle></el-button>-->
+                                <button @click="addQty(cartProduct, index)"><i class="el-icon-circle-plus-outline"></i></button>
+                                <button @click="decreaseQty"><i class="el-icon-remove-outline"></i></button>
+                            </td>
+                            <td>{{ cartProduct.price * cartProduct.quantity | formatPrice }}</td>
                             <td>
                                 <button @click="removeProductFromCart(index)">&times;</button>
                             </td>
@@ -56,7 +62,8 @@
         },
         computed: {
             ...mapGetters({
-                products : 'cartProducts',
+                cartProducts : 'cartProducts',
+                products: 'availableProducts',
                 total : 'cartTotal'
             }),
             ...mapState({
@@ -72,6 +79,13 @@
             removeProductFromCart(index) {
                 this.$store.dispatch('removeFromCart', index);
 
+            },
+            addQty: function (cartProduct, index) {
+                cartProduct.p_id = index;
+                this.$store.commit('modifyCart', cartProduct)
+            },
+            decreaseQty(){
+                return this.product.quantity -= 1
             },
             checkout(){
                 alert('Pay us Kshs ' + this.total)
@@ -119,6 +133,10 @@
         text-align: left;
         background-color: #306cba;
         color: white;
+    }
+    button {
+        border: none;
+        background-color: transparent;
     }
 
 </style>

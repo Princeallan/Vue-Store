@@ -1,6 +1,6 @@
 <template>
     <div id="addproduct">
-            <el-button type="text" @click="dialogTableVisible = true"><i class="el-icon-goods"></i> Add Product</el-button>
+            <el-button type="text" @click="dialogTableVisible = true"><i class="el-icon-circle-plus-outline"></i> Add Product</el-button>
 
         <el-dialog title="Add Products" :visible.sync="dialogTableVisible">
             <el-form v-model="product" >
