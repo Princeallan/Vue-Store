@@ -77,12 +77,12 @@ export const store = new Vuex.Store({
         setCheckoutStatus(state, status) {
             state.CheckoutStatus = status
         },
-        modifyCart(state, cartProduct) {
-            let index = state.cart.indexOf(cartProduct);
+        modifyCart(state, product) {
+            let index = state.cart.indexOf(product);
 
-            if (index > 1) {
+            if (index) {
                 let cartProduct = state.cart[index];
-                state.cartCount += cartProduct.quantity;
+                state.cartCount += product.quantity;
 
                 state.cart.splice(index, 1);
             }

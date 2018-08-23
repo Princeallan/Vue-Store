@@ -14,7 +14,7 @@
                             <th>Name</th>
                             <th>Unit Price</th>
                             <th>Quantity</th>
-                            <th>+/-</th>
+                            <!--<th>+/-</th>-->
                             <th>Total Price</th>
                             <th width="50px">Remove</th>
                         </tr>
@@ -24,11 +24,12 @@
                             :offset="index > 0 ? 1 : 1">
                             <td property="name">{{ cartProduct.name }}</td>
                             <td property="category">{{ cartProduct.price }}</td>
-                            <td property="quantity">{{ cartProduct.quantity }}</td>
+                            <!--<td property="quantity">{{ cartProduct.quantity }}</td>-->
                             <td>
-                                <!--<el-button type="primary" icon="el-icon-remove-outline" circle></el-button>-->
-                                <button @click="addQty(cartProduct, index)"><i class="el-icon-circle-plus-outline"></i></button>
-                                <button @click="decreaseQty"><i class="el-icon-remove-outline"></i></button>
+
+                                <el-input-number class="addQty" :value="cartProduct.quantity" @change="addInCart()" :min="1" :max="20"></el-input-number>
+                                <!--<button @click="addQty(cartProduct, index)"><i class="el-icon-circle-plus-outline"></i></button>-->
+                                <!--<button @click="decreaseQty"><i class="el-icon-remove-outline"></i></button>-->
                             </td>
                             <td>{{ cartProduct.price * cartProduct.quantity | formatPrice }}</td>
                             <td>
@@ -57,7 +58,7 @@
         data() {
             return {
                 dialogTableVisible: false,
-                product: []
+                product: [],
             }
         },
         computed: {
@@ -69,9 +70,6 @@
             ...mapState({
                 checkoutStatus: 'checkoutStatus'
             })
-            // products() {
-            //     return this.$store.getters.cartProducts
-            // },
 
         },
         methods: {
@@ -80,13 +78,19 @@
                 this.$store.dispatch('removeFromCart', index);
 
             },
-            addQty: function (cartProduct, index) {
-                cartProduct.p_id = index;
-                this.$store.commit('modifyCart', cartProduct)
+            addInCart: function (product, index) {
+                product.id = index;
+                // console.log(index);
+                this.$store.dispatch('addToCart', product)
             },
-            decreaseQty(){
-                return this.product.quantity -= 1
-            },
+            // addQuantity (cartProduct, value) {
+            //     console.log(value);
+                // cartProduct.id = index;
+               // this.$store.commit('modifyCart', cartProduct)
+            // },
+            // decreaseQty(){
+            //     return this.product.quantity --
+            // },
             checkout(){
                 alert('Pay us Kshs ' + this.total)
             }
@@ -138,5 +142,8 @@
         border: none;
         background-color: transparent;
     }
+    /*.addQty{*/
+        /*width: 100px;*/
+    /*}*/
 
 </style>
