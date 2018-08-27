@@ -27,7 +27,7 @@
                     name: '',
                     category: '',
                     price: '',
-                    quantity: ''
+                    quantity: 0
                 }
             }
         },
@@ -50,6 +50,7 @@
 
             addToCart: function (product, index) {
                 product.id = index;
+                product.cartQuantity=1;
                 console.log(index);
                 this.$store.dispatch('addToCart', product)
             }

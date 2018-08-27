@@ -26,19 +26,11 @@ export const store = new Vuex.Store({
         },
 
         cartProducts(state) {
-            return state.cart.map(cartItem => {
-                const product = state.products.find(product => product.id === cartItem.id)
-                return {
-                    name: product.name,
-                    price: product.price,
-                    quantity: cartItem.quantity,
-                }
-            })
+            return state.cart;
         },
 
         cartTotal(state, getters) {
-
-            return getters.cartProducts.reduce((total, product) => total + product.price * product.quantity, 0)
+            return getters.cartProducts.reduce((total, product) => total + product.price * product.cartQuantity, 0)
         },
 
     },
@@ -59,11 +51,26 @@ export const store = new Vuex.Store({
         [LOGOUT](state) {
             state.isLoggedIn = false;
         },
-        pushProductToCart(state, productId) {
-            state.cart.push({
-                id: productId,
-                quantity: 1
-            })
+        INCREMENTCARTITEMQTY(state, product) {
+            state.cart =
+                state.cart.map(element => element.id ==
+                product.id ? {...element, cartQuantity: Number(product.cartQuantity) + 1} : element);
+        },
+
+        DECREMENTCARTITEMQTY(state, product) {
+            state.cart =
+                state.cart.map(element => element.id ==
+                product.id ? {...element, cartQuantity: Number(product.cartQuantity) - 1} : element);
+        },
+
+        INCREMENTPRODUCTMQTY(state, product) {
+            state.products =
+                state.products.map(element => element.id ==
+                product.id ? {...element, quantity: Number(product.quantity) + 1} : element);
+        },
+
+        pushProductToCart(state, product) {
+            state.cart.push(product)
         },
         incrementItemQuantity(state, cartItem) {
             cartItem.quantity++
@@ -87,7 +94,7 @@ export const store = new Vuex.Store({
                 state.cart.splice(index, 1);
             }
         },
-        emptyCart(state){
+        emptyCart(state) {
             state.cart = []
         }
     },
@@ -104,13 +111,20 @@ export const store = new Vuex.Store({
             if (product.quantity > 0) {
                 const cartItem = context.state.cart.find(item => item.id === product.id);
                 if (!cartItem) {
-                    context.commit('pushProductToCart', product.id)
-                } else {
-                    context.commit('incrementItemQuantity', cartItem)
+                    context.commit('pushProductToCart', product)
                 }
-                context.commit('decrementItemQuantity', product)
             }
 
+        },
+
+        incrementCartItemQty(store, product) {
+            store.commit("INCREMENTCARTITEMQTY", product);
+        },
+        incrementProductQty(store, product) {
+            store.commit("INCREMENTPRODUCTMQTY", product);
+        },
+        decrementCartItemQty(store, product) {
+            store.commit("DECREMENTCARTITEMQTY", product);
         },
 
         login(state) {

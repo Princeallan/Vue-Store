@@ -13,25 +13,32 @@
                         <tr>
                             <th>Name</th>
                             <th>Unit Price</th>
-                            <th>Quantity</th>
+                            <th width="100px">Quantity</th>
+                            <th width="100px">Quantity</th>
                             <!--<th>+/-</th>-->
                             <th>Total Price</th>
-                            <th width="50px">Remove</th>
+                            <th>Remove</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr :data="cartProducts" style="padding: 14px;" v-for="(cartProduct, index) in cartProducts" :key="index"
+                        <tr :data="cartProducts" style="padding: 14px;" v-for="(cartProduct, index) in cartProducts"
+                            :key="index"
                             :offset="index > 0 ? 1 : 1">
                             <td property="name">{{ cartProduct.name }}</td>
                             <td property="category">{{ cartProduct.price }}</td>
                             <!--<td property="quantity">{{ cartProduct.quantity }}</td>-->
-                            <td>
+                            <td width="100px">
 
-                                <el-input-number class="addQty" :value="cartProduct.quantity" @change="addInCart()" :min="1" :max="20"></el-input-number>
-                                <!--<button @click="addQty(cartProduct, index)"><i class="el-icon-circle-plus-outline"></i></button>-->
-                                <!--<button @click="decreaseQty"><i class="el-icon-remove-outline"></i></button>-->
+                                <el-input type="number" class="addQty" :value="cartProduct.cartQuantity" :min="1"
+                                          :max="cartProduct.quantity"></el-input></td>
+                            <td>
+                                <button @click="incrementQty(cartProduct)" :min="1"
+                                        :max="cartProduct.quantity"><i class="el-icon-circle-plus-outline"></i>
+                                </button>
+                                <button @click="decreaseQty(cartProduct)"><i class="el-icon-remove-outline"></i>
+                                </button>
                             </td>
-                            <td>{{ cartProduct.price * cartProduct.quantity | formatPrice }}</td>
+                            <td>{{ cartProduct.price * cartProduct.cartQuantity | formatPrice }}</td>
                             <td>
                                 <button @click="removeProductFromCart(index)">&times;</button>
                             </td>
@@ -41,7 +48,7 @@
                 </div>
                 <div class="bottom clearfix">
                     <div style="color: #0c5460"><p>Payable Grand Total Kshs. {{total | formatPrice}}</p></div>
-                    <button class="btn btn-danger pull-right" @click="checkout" > Checkout </button>
+                    <button class="btn btn-danger pull-right" @click="checkout"> Checkout</button>
                     <!--<p v-if="CheckoutStatus">{{ CheckoutStatus }}</p>-->
                 </div>
 
@@ -63,9 +70,9 @@
         },
         computed: {
             ...mapGetters({
-                cartProducts : 'cartProducts',
+                cartProducts: 'cartProducts',
                 products: 'availableProducts',
-                total : 'cartTotal'
+                total: 'cartTotal'
             }),
             ...mapState({
                 checkoutStatus: 'checkoutStatus'
@@ -75,23 +82,29 @@
         methods: {
             // ...mapActions(['checkout']),
             removeProductFromCart(index) {
-                this.$store.dispatch('removeFromCart', index);
+                this.$store.dispatch('removeFromCart', index)
 
             },
-            addInCart: function (product, index) {
-                product.id = index;
+            addInCart: function (product) {
+                // product.id = index;
                 // console.log(index);
+
+                console.log(product);
                 this.$store.dispatch('addToCart', product)
             },
-            // addQuantity (cartProduct, value) {
-            //     console.log(value);
-                // cartProduct.id = index;
-               // this.$store.commit('modifyCart', cartProduct)
-            // },
-            // decreaseQty(){
-            //     return this.product.quantity --
-            // },
-            checkout(){
+            incrementQty(cartProduct) {
+
+                if(cartProduct.cartQuantity<cartProduct.quantity){
+                    console.log(cartProduct);
+                    this.$store.dispatch('incrementCartItemQty', cartProduct).then(()=>{
+                        this.$store.dispatch('incrementProductQty', cartProduct)
+                    })
+                }
+            },
+            decreaseQty(cartProduct) {
+                this.$store.dispatch('decrementCartItemQty', cartProduct)
+            },
+            checkout() {
                 alert('Pay us Kshs ' + this.total)
             }
         },
@@ -100,9 +113,7 @@
                 return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             }
         },
-        watch: {
-            
-        }
+        watch: {}
     }
 
 </script>
@@ -138,12 +149,14 @@
         background-color: #306cba;
         color: white;
     }
+
     button {
         border: none;
         background-color: transparent;
     }
+
     /*.addQty{*/
-        /*width: 100px;*/
+    /*width: 100px;*/
     /*}*/
 
 </style>

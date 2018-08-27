@@ -43,6 +43,8 @@
         },
         methods: {
             addProduct: function () {
+                this.product.quantity= Number(this.product.quantity);
+                this.product.cartQuantity=1;
                 this.$store.dispatch('addProduct', this.product).then(() => {
                     this.product = {};
                 });
