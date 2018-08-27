@@ -2,7 +2,7 @@
 
     <el-row>
 
-        <productItem v-for="(product, index) in products" :key="index" :offset="index" :prod="product"></productItem>
+        <productItem v-for="(product) in products"  :prod="product" :key="product.id"></productItem>
 
     </el-row>
 </template>

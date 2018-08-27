@@ -1,19 +1,22 @@
 <template>
     <div>
-            <el-col :span="7"  :key="index" :offset="index > 1 ? 2 : 1">
+        <el-col :span="7" style="margin: 10px;">
             <el-card :body-style="{ padding: '0px' }">
                 <img src="../assets/cap2.jpg" class="image">
                 <div style="padding: 14px;">
                     <span>{{ prod.name }} </span><br>
                     <span>{{ prod.category }}</span><br>
                     <span> {{ prod.quantity }} | $ {{ prod.price }}</span>
+                    {{index}}
                     <div class="bottom clearfix">
-                        <el-button type="warning" icon="el-icon-edit" @click="dialogTableVisible = true"> Edit</el-button>
-                        <el-button type="danger" icon="el-icon-delete" @click="removeProduct(index)">Delete</el-button>
+                        <el-button type="warning" icon="el-icon-edit" @click="dialogTableVisible = true"> Edit
+                        </el-button>
+                        <el-button type="danger" icon="el-icon-delete" @click="removeProduct(prod.id)">Delete
+                        </el-button>
                     </div>
                 </div>
             </el-card>
-            </el-col>
+        </el-col>
 
         <el-dialog
                 :visible.sync="dialogTableVisible"
@@ -68,15 +71,30 @@
         },
 
         methods: {
-            removeProduct(index) {
-                this.product.splice(index, 1).then(() => {
+            removeProduct(key) {
+                this.$confirm('This will permanently delete the file. Continue?', 'Warning', {
+                    confirmButtonText: 'OK',
+                    cancelButtonText: 'Cancel',
+                    type: 'warning'
+                }).then(() => {
+                    this.$store.dispatch('deleteAProduct', key);
 
                     this.$notify({
                         title: 'Success',
                         message: 'Successfully Deleted',
                         type: 'success'
                     });
-                })
+
+                }).catch(() => {
+
+                    this.$notify({
+                        title: 'Cancelled',
+                        message: 'Delete canceled',
+                        type: 'info'
+
+                    });
+                });
+
             },
         }
     }

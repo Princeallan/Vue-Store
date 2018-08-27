@@ -86,6 +86,17 @@ export const store = new Vuex.Store({
         deleteProduct(state, index) {
             state.cart.splice(index, 1)
         },
+        REMOVE_PRODUCT(state, prod_id) {
+
+            let array = state.products;
+
+            let prod = array.find(element => element.id === prod_id);
+
+            const index = array.indexOf(prod);
+
+            array.splice(index, 1);
+        },
+
         setCheckoutStatus(state, status) {
             state.CheckoutStatus = status
         },
@@ -142,8 +153,11 @@ export const store = new Vuex.Store({
             commit(LOGOUT);
         },
 
-        removeFromCart(context, index) {
-            context.commit('deleteProduct', index)
+        removeFromCart(context, product_id) {
+            context.commit('deleteProduct', product_id)
+        },
+        deleteAProduct(context, index) {
+            context.commit('REMOVE_PRODUCT', index)
         },
         checkout({state, commit}) {
             shop.buyProducts(
