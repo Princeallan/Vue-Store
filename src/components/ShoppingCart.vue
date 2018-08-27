@@ -85,11 +85,7 @@
                 this.$store.dispatch('removeFromCart', index)
 
             },
-            // addInCart: function (product) {
-            //
-            //     console.log(product);
-            //     this.$store.dispatch('addToCart', product)
-            // },
+
             incrementQty(cartProduct) {
 
                 if(cartProduct.cartQuantity<cartProduct.quantity){

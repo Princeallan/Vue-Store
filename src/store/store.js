@@ -9,7 +9,12 @@ const LOGOUT = "LOGOUT";
 
 export const store = new Vuex.Store({
     state: {
-        products: [],
+        products: [
+            {"id": 1, "name": "Vue Tshirt", "category": "Clothing", "quantity": 10, "price": 50},
+            {"id": 2, "name": "Vue Cap", "category": "Men", "quantity": 10, "price": 200},
+            {"id": 3, "name": "Vue Ladies Watch", "category": "Women", "quantity": 10, "price": 500},
+            {"id": 4, "name": "Vue Tshirt", "category": "Kids", "quantity": 10, "price": 80}
+        ],
         isLoggedIn: !!localStorage.getItem("token"),
         cart: [],
         users: [],
