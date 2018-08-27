@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import home from '../components/home'
-import productList from '../components/ProductList'
-import sidebar from '../components/sidebar'
-import Login from '../components/login'
-import signup from '../components/signUp'
-import cart from '../components/ShoppingCart'
+import home from '../components/home';
+import productList from '../components/ProductList';
+import sidebar from '../components/sidebar';
+import Login from '../components/login';
+import signup from '../components/signUp';
+import cart from '../components/ShoppingCart';
 import Addproduct from '../components/AddProduct';
+import admin from '../admin/Dashboard';
 
 
 Vue.use(Router);
@@ -45,6 +46,11 @@ export default new Router({
             path: 'addproduct',
             name: 'addproduct',
             component: Addproduct,
+        },
+        {
+            path: 'admin',
+            name: 'admin',
+            component: admin
         }
     ],
     mode: 'history'
