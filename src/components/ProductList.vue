@@ -1,6 +1,6 @@
 <template>
     <el-row>
-        <el-col :span="5" class="dnc" v-for="(product, index) in products" :key="index" >
+        <el-col :span="7" style="margin: 10px;" class="dnc" v-for="(product, index) in products" :key="index" >
             <el-card :body-style="{ padding: '0px' }">
                 <img src="../assets/cap2.jpg" class="image">
                 <div style="padding: 14px;">
@@ -52,13 +52,26 @@
                 this.$store.dispatch('addProduct', this.product).then(() => {
                     this.product = {};
 
+                    this.$notify({
+                        title: 'Success',
+                        message: 'Product successfully added ',
+                        type: 'success'
+                    });
+
                 });
             },
 
             addToCart: function (product, index) {
                 product.id = index;
                 product.cartQuantity=1;
-                this.$store.dispatch('addToCart', product)
+                this.$store.dispatch('addToCart', product).then(() => {
+
+                    this.$notify({
+                        title: 'Success',
+                        message: 'Product added to cart',
+                        type: 'success'
+                    });
+            })
             }
         },
 

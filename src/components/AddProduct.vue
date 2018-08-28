@@ -51,12 +51,19 @@
                 this.product.cartQuantity=1;
                 this.$store.dispatch('addProduct', this.product).then(() => {
                     this.product = {};
+
+                    this.dialogTableVisible = false;
+
+                    this.$notify({
+                        title: 'Success',
+                        message: 'Product successfully added ',
+                        type: 'success'
+                    });
                 });
             },
 
             addToCart: function (product, index) {
                 product.id = index;
-                // console.log(index);
                 this.$store.dispatch('addToCart', product)
             },
 

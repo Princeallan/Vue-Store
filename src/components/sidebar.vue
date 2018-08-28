@@ -6,7 +6,7 @@
                 @open="handleOpen"
                 @close="handleClose"
                 v-if="isLoggedIn" >
-            <el-menu-item index="4" v-show="email === 'akirui@cytonn.com'">
+            <el-menu-item index="4" >
                 <AddProduct></AddProduct>
             </el-menu-item>
             <el-menu-item index="4">

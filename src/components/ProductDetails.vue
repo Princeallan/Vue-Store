@@ -5,11 +5,11 @@
 
         <el-dialog
                 :visible.sync="dialogTableVisible"
-                width="30%">
+                width="35%">
             <h3 class="text-center">Product Details</h3>
 
             <el-card :body-style="{ padding: '0px' }">
-                <img src="../assets/cap2.jpg" class="image" style="height: 100px;width: 100px;">
+                <img src="../assets/cap2.jpg" class="image" style="height: 200px;width: 200px;">
                 <div style="padding: 10px;">
                     <p><b >Name: </b><span>{{ prod.name }} </span></p><br>
                     <p><b>Price: </b><span>{{ prod.price }} </span></p><br>

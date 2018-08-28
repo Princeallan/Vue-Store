@@ -4,10 +4,10 @@
             <el-card :body-style="{ padding: '0px' }">
                 <img src="../assets/cap2.jpg" class="image">
                 <div style="padding: 14px;">
-                    <span>{{ prod.name }} </span><br>
-                    <span>{{ prod.category }}</span><br>
-                    <span> {{ prod.quantity }} | $ {{ prod.price }}</span>
-                    {{index}}
+                    <b >Name: </b><span>{{ prod.name }} </span><br>
+                    <b>Price: </b><span>{{ prod.price }} </span><br>
+                    <b>Category: </b><span>{{ prod.category }}</span><br>
+                    <span><b>Available: </b> {{ prod.quantity }} </span>
                     <div class="bottom clearfix">
                         <el-button type="warning" icon="el-icon-edit" @click="dialogTableVisible = true"> Edit
                         </el-button>
@@ -57,7 +57,7 @@
 
     export default {
 
-        props: ['prod', 'key'],
+        props: ['prod', ],
 
         data() {
 
