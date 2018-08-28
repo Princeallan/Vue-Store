@@ -1,14 +1,18 @@
 <template>
     <el-row>
-        <el-col :span="5" v-for="(product, index) in products" :key="index" :offset="index > 0 ? 1 : 1">
+        <el-col :span="5" class="dnc" v-for="(product, index) in products" :key="index" >
             <el-card :body-style="{ padding: '0px' }">
                 <img src="../assets/cap2.jpg" class="image">
                 <div style="padding: 14px;">
-                    <span>{{ product.name }} </span><br>
-                    <span>{{ product.category }}</span><br>
-                    <span> {{ product.quantity }} | $ {{ product.price }}</span>
+                    <b >Name: </b><span>{{ product.name }} </span><br>
+                    <b>Price: </b><span>{{ product.price }} </span><br>
+                    <b>Category: </b><span>{{ product.category }}</span><br>
+                    <span><b>Available: </b> {{ product.quantity }} </span>
                     <div class="bottom clearfix">
-                        <el-button type="primary" @click="addToCart(product, index)"> Buy</el-button>
+                        <el-button type="primary" @click="addToCart(product, index)"> Buy <i class="el-icon-goods"></i></el-button>
+                        <productDetails :prod="product">
+                            <el-button slot="cartbutton" type="primary" @click="addToCart(product, index)"> Buy</el-button>
+                        </productDetails>
                     </div>
                 </div>
             </el-card>
@@ -18,7 +22,8 @@
 
 <script>
 
-    import {mapGetters} from 'vuex'
+    import {mapGetters} from 'vuex';
+    import productDetails from '../components/ProductDetails'
 
     export default {
         data() {
@@ -31,27 +36,28 @@
                 }
             }
         },
+
+        components: {
+            productDetails
+        },
         computed: {
             ...mapGetters({
                 products: 'availableProducts',
 
             }),
-            // products() {
-            //     return this.$store.getters.availableProducts
-            // }
         },
 
         methods: {
             addProduct: function () {
                 this.$store.dispatch('addProduct', this.product).then(() => {
                     this.product = {};
+
                 });
             },
 
             addToCart: function (product, index) {
                 product.id = index;
                 product.cartQuantity=1;
-                console.log(index);
                 this.$store.dispatch('addToCart', product)
             }
         },
@@ -62,6 +68,9 @@
 
 <style scoped>
 
+    .dnc {
+        margin: 5px;
+    }
     .bottom {
         margin-top: 13px;
         line-height: 12px;

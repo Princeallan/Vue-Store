@@ -11,6 +11,9 @@
                     <el-input type="text" placeholder="Category" v-model="product.category"></el-input>
                 </el-form-item>
                 <el-form-item>
+                    <el-input type="text" placeholder="Description" v-model="product.description"></el-input>
+                </el-form-item>
+                <el-form-item>
                     <el-input type="number" placeholder="Price" v-model="product.price"></el-input>
                 </el-form-item>
                 <el-form-item>
@@ -36,7 +39,8 @@
                     name: '',
                     category: '',
                     price: '',
-                    quantity: ''
+                    quantity: '',
+                    description:''
                 },
                 dialogTableVisible: false
             }

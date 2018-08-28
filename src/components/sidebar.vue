@@ -1,42 +1,49 @@
 <template>
-    <el-menu
-            default-active="2"
-            class="el-menu-vertical-demo"
-            @open="handleOpen"
-            @close="handleClose"
-            v-if="isLoggedIn" >
-        <!--<el-menu-item index="3">-->
-            <!--<i class="el-icon-menu"></i>-->
-            <!--<span>Brands</span>-->
-        <!--</el-menu-item>-->
-        <el-menu-item index="">
-            <AddProduct></AddProduct>
-        </el-menu-item>
-        <el-menu-item index="">
-            <shoppingCart></shoppingCart>
-        </el-menu-item>
-        <el-menu-item index="4">
-            <i class="el-icon-setting"></i>
-            <span><router-link to="/login" v-if="!isLoggedIn">Login</router-link>
+    <div>
+        <el-menu
+                default-active="2"
+                class="el-menu-vertical-demo"
+                @open="handleOpen"
+                @close="handleClose"
+                v-if="isLoggedIn" >
+            <el-menu-item index="4" v-show="email === 'akirui@cytonn.com'">
+                <AddProduct></AddProduct>
+            </el-menu-item>
+            <el-menu-item index="4">
+                <shoppingCart></shoppingCart>
+            </el-menu-item>
+            <el-menu-item index="4">
+                <i class="el-icon-setting"></i>
+                <span><router-link to="/login" v-if="!isLoggedIn">Login</router-link>
                     <a href="#" v-if="isLoggedIn" @click="logout">Logout</a>
                 </span>
-        </el-menu-item>
-        <el-menu-item index="5" v-if="!isLoggedIn">
-            <i class="el-icon-setting"></i>
-            <span><router-link to="/signup">SignUp</router-link>
+            </el-menu-item>
+            <el-menu-item index="5" v-if="!isLoggedIn">
+                <i class="el-icon-setting"></i>
+                <span><router-link to="/signup">SignUp</router-link>
                 </span>
-        </el-menu-item>
-    </el-menu>
+            </el-menu-item>
+        </el-menu>
+    </div>
+
 </template>
 <script>
     import shoppingCart from './ShoppingCart'
     import AddProduct from './AddProduct'
 
     export default {
+
+        data(){
+          return{
+              email: this.$session.get('email'),
+          }
+        },
+
         methods: {
             logout: function () {
                 this.$store.dispatch('logout');
-                this.$router.push("/")
+                this.$session.destroy();
+                this.$router.push("/");
             },
             handleOpen(key, keyPath) {
                 console.log(key, keyPath);
@@ -44,7 +51,6 @@
             handleClose(key, keyPath) {
                 console.log(key, keyPath);
             }
-            // ...Vuex.mapActions(["logout"])
         },
         components: {
             shoppingCart,
@@ -54,7 +60,6 @@
             isLoggedIn() {
                 return this.$store.getters.isLoggedIn;
             },
-            // ...Vuex.mapGetters(["isLoggedIn"])
         }
     }
 </script>

@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VueSession from 'vue-session'
+
+Vue.use(VueSession);
 
 Vue.use(Vuex);
 
@@ -10,10 +13,10 @@ const LOGOUT = "LOGOUT";
 export const store = new Vuex.Store({
     state: {
         products: [
-            {"id": 1, "name": "Vue Tshirt", "category": "Clothing", "quantity": 10, "price": 50},
-            {"id": 2, "name": "Vue Cap", "category": "Men", "quantity": 10, "price": 200},
-            {"id": 3, "name": "Vue Ladies Watch", "category": "Women", "quantity": 10, "price": 500},
-            {"id": 4, "name": "Vue Tshirt", "category": "Kids", "quantity": 10, "price": 80}
+            {"id": 1, "name": "Tshirt", "category": "Clothing", "description": "Cotton fashion Turkey made", "quantity": 10, "price": 50},
+            {"id": 2, "name": "Cap", "category": "Men", "description": "Cotton new fashion Nigerian made", "quantity": 10, "price": 200},
+            {"id": 3, "name": "Watch", "category": "Women", "description": "Fashion Ugandan made", "quantity": 10, "price": 500},
+            {"id": 4, "name": "Blazer", "category": "Kids", "description": "Cotton, Kenyan made", "quantity": 10, "price": 80}
         ],
         isLoggedIn: !!localStorage.getItem("token"),
         cart: [],
@@ -100,16 +103,7 @@ export const store = new Vuex.Store({
         setCheckoutStatus(state, status) {
             state.CheckoutStatus = status
         },
-        modifyCart(state, product) {
-            let index = state.cart.indexOf(product);
 
-            if (index) {
-                let cartProduct = state.cart[index];
-                state.cartCount += product.quantity;
-
-                state.cart.splice(index, 1);
-            }
-        },
         emptyCart(state) {
             state.cart = []
         }
@@ -128,9 +122,12 @@ export const store = new Vuex.Store({
                 const cartItem = context.state.cart.find(item => item.id === product.id);
                 if (!cartItem) {
                     context.commit('pushProductToCart', product)
+                } else
+                    {
+                        context.commit('incrementItemQuantity', cartItem)
+                    }
+                context.commit('decrementItemQuantity', product)
                 }
-            }
-
         },
 
         incrementCartItemQty(store, product) {

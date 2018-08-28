@@ -34,16 +34,12 @@
         },
         methods: {
             login() {
-                // this.$store.dispatch("login", {
-                //     email: this.email,
-                //     password: this.password
-                // }).then(() => {
-                //     this.$router.push("/")
-                // });
                 let vm = this;
                 firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((resp) => {
                     vm.$store.dispatch('login').then(() => {
                         if (this.email === "akirui@cytonn.com") {
+                            vm.$session.set("email","akirui@cytonn.com");
+
                             vm.$router.push({name: "admin"});
                         } else {
                             vm.$router.push({name: "productList"})

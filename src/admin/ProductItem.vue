@@ -56,7 +56,9 @@
 <script>
 
     export default {
-        props: ['prod'],
+
+        props: ['prod', 'key'],
+
         data() {
 
             return {

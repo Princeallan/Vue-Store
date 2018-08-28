@@ -95,7 +95,9 @@
                 }
             },
             decreaseQty(cartProduct) {
-                this.$store.dispatch('decrementCartItemQty', cartProduct)
+                if(cartProduct.cartQuantity>0){
+                    this.$store.dispatch('decrementCartItemQty', cartProduct)
+                }
             },
             checkout() {
                 alert('Pay us Kshs ' + this.total)
