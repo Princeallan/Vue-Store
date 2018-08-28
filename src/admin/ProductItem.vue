@@ -2,10 +2,10 @@
     <div>
         <el-col :span="7" style="margin: 10px;">
             <el-card :body-style="{ padding: '0px' }">
-                <img src="../assets/cap2.jpg" class="image">
+                <img src="../assets/cap2.jpg" class="image" style="width: ">
                 <div style="padding: 14px;">
                     <b >Name: </b><span>{{ prod.name }} </span><br>
-                    <b>Price: </b><span>{{ prod.price }} </span><br>
+                    <b>Price: </b> Kshs. <span>{{ prod.price }} </span><br>
                     <b>Category: </b><span>{{ prod.category }}</span><br>
                     <span><b>Available: </b> {{ prod.quantity }} </span>
                     <div class="bottom clearfix">
@@ -117,6 +117,26 @@
 
     .item.list-group-item img {
         float: left;
+    }
+
+    .bottom {
+        margin-top: 13px;
+        line-height: 12px;
+    }
+
+    .image {
+        width: 100%;
+        display: block;
+    }
+
+    .clearfix:before,
+    .clearfix:after {
+        display: table;
+        content: "";
+    }
+
+    .clearfix:after {
+        clear: both
     }
 
 </style>

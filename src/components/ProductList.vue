@@ -5,7 +5,7 @@
                 <img src="../assets/cap2.jpg" class="image">
                 <div style="padding: 14px;">
                     <b >Name: </b><span>{{ product.name }} </span><br>
-                    <b>Price: </b><span>{{ product.price }} </span><br>
+                    <b>Price: </b>Kshs. <span> {{ product.price }} </span><br>
                     <b>Category: </b><span>{{ product.category }}</span><br>
                     <span><b>Available: </b> {{ product.quantity }} </span>
                     <div class="bottom clearfix">

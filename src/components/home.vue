@@ -19,7 +19,6 @@
 
 <script>
     import navbar from './NavBar.vue'
-    import slider from './slider'
     import ProductList from './ProductList'
     import sidebar from './sidebar'
     import signup from './signUp'
@@ -29,7 +28,6 @@
 
         components: {
             navbar,
-            slider,
             ProductList,
             sidebar,
             signup

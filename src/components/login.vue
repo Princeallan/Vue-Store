@@ -38,11 +38,17 @@
                 firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((resp) => {
                     vm.$store.dispatch('login').then(() => {
                         if (this.email === "akirui@cytonn.com") {
-                            vm.$session.set("email","akirui@cytonn.com");
+
+                            vm.$session.set("email", "akirui@cytonn.com");
 
                             vm.$router.push({name: "admin"});
+
                         } else {
+
+                            vm.$session.set("email", this.email);
+
                             vm.$router.push({name: "productList"})
+
                         }
 
                     });

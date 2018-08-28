@@ -1,12 +1,14 @@
 <template>
     <div>
+        {{ email }}
+       
         <el-menu
                 default-active="2"
                 class="el-menu-vertical-demo"
                 @open="handleOpen"
                 @close="handleClose"
                 v-if="isLoggedIn" >
-            <el-menu-item index="4" >
+            <el-menu-item index="4" v-if="email === 'akirui@cytonn.com'">
                 <AddProduct></AddProduct>
             </el-menu-item>
             <el-menu-item index="4">
@@ -33,15 +35,22 @@
 
     export default {
 
-        data(){
-          return{
-              email: this.$session.get('email'),
+        data() {
+          return {
+              email: this.$session.get('email')
           }
         },
+
+        // watch: {
+        //  email() {
+        //      this.email = this.$session.get('email')
+        //  }
+        // },
 
         methods: {
             logout: function () {
                 this.$store.dispatch('logout');
+                this.email = '';
                 this.$session.destroy();
                 this.$router.push("/");
             },
@@ -67,5 +76,12 @@
 <style>
     a {
         color: #008080;
+    }
+    .active {
+        display: block !important;
+    }
+
+    .not-active {
+        display: none;
     }
 </style>
