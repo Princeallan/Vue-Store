@@ -7,7 +7,7 @@
                 @open="handleOpen"
                 @close="handleClose"
                 v-if="isLoggedIn" >
-            <el-menu-item index="4" v-if="email === 'akirui@cytonn.com'">
+            <el-menu-item index="4" v-if="isAdmin">
                 <AddProduct></AddProduct>
             </el-menu-item>
             <el-menu-item index="4">
@@ -30,6 +30,7 @@
 </template>
 <script>
     import shoppingCart from './ShoppingCart'
+    import firebase from 'firebase'
     import AddProduct from './AddProduct'
 
     export default {
@@ -40,12 +41,10 @@
               // email: this.$localStorage.get('email')
           }
         },
+        created() {
 
-        // watch: {
-        //  email() {
-        //      this.email = this.$session.get('email')
-        //  }
-        // },
+
+        },
 
         methods: {
             logout: function () {
@@ -53,6 +52,10 @@
                 this.email = '';
                 this.$session.destroy();
                 this.$router.push("/");
+                // let vm = this;
+                // firebase.auth().signOut().then(() => {
+                //     vm.$router.push('login');
+                // })
 
             },
             handleOpen(key, keyPath) {
@@ -70,6 +73,16 @@
             isLoggedIn() {
                 return this.$store.getters.isLoggedIn;
             },
+
+            isAdmin(){
+                let user = firebase.auth().currentUser;
+                this.email=user.email;
+                if (user.email === "akirui@cytonn.com") {
+
+                  return   true;
+                }
+              // return this. email ==="akirui@cytonn.com";
+            }
         }
     }
 </script>
