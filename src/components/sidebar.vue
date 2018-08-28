@@ -1,7 +1,6 @@
 <template>
     <div>
-        {{ email }}
-       
+{{email}}
         <el-menu
                 default-active="2"
                 class="el-menu-vertical-demo"
@@ -37,7 +36,8 @@
 
         data() {
           return {
-              email: this.$session.get('email')
+              email: this.$session.get('email'),
+              // email: this.$localStorage.get('email')
           }
         },
 
@@ -53,6 +53,7 @@
                 this.email = '';
                 this.$session.destroy();
                 this.$router.push("/");
+
             },
             handleOpen(key, keyPath) {
                 console.log(key, keyPath);

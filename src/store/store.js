@@ -1,13 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueSession from 'vue-session';
+import VueLocalStorage from 'vue-localstorage';
+
 import actions from './actions';
 import mutations from './mutations';
 
 Vue.use(VueSession);
+Vue.use(VueLocalStorage);
 
 Vue.use(Vuex);
 
+import shop from '../api/shop';
 
 export const store = new Vuex.Store({
     state: {
@@ -20,7 +24,7 @@ export const store = new Vuex.Store({
         isLoggedIn: !!localStorage.getItem("token"),
         cart: [],
         users: [],
-        checkout: null
+        checkoutStatus: null
 
     },
     getters: {

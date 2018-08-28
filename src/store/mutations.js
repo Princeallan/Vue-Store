@@ -2,6 +2,7 @@ const LOGIN = "LOGIN";
 const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 const LOGOUT = "LOGOUT";
 
+
 export default {
     ADD_PRODUCT: (state, product) => {
         state.products.push(product)
@@ -61,7 +62,7 @@ export default {
     },
 
     setCheckoutStatus(state, status) {
-        state.CheckoutStatus = status
+        state.checkoutStatus = status
     },
 
     emptyCart(state) {

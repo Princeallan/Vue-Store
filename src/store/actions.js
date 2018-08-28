@@ -1,3 +1,4 @@
+import shop from '../api/shop';
 const LOGOUT = "LOGOUT";
 
 export default {
@@ -52,7 +53,7 @@ export default {
         shop.buyProducts(
             state.cart,
             () => {
-                commit('emptyCart')
+                commit('emptyCart');
                 commit('setCheckoutStatus', 'success')
             },
             () => {

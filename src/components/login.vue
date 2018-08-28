@@ -40,6 +40,7 @@
                         if (this.email === "akirui@cytonn.com") {
 
                             vm.$session.set("email", "akirui@cytonn.com");
+                            // Vue.localStorage.set('email', 'akirui@cytonn.com');
 
                             vm.$router.push({name: "admin"});
 

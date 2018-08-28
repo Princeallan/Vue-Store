@@ -30,7 +30,8 @@
                             <td width="100px">
 
                                 <el-input type="number" class="addQty" :value="cartProduct.cartQuantity" :min="1"
-                                          :max="cartProduct.quantity"></el-input></td>
+                                          :max="cartProduct.quantity"></el-input>
+                            </td>
                             <td>
                                 <button @click="incrementQty(cartProduct)" :min="1"
                                         :max="cartProduct.quantity"><i class="el-icon-circle-plus-outline"></i>
@@ -48,7 +49,7 @@
                 </div>
                 <div class="bottom clearfix">
                     <div style="color: #0c5460"><p>Payable Grand Total Kshs. {{total | formatPrice}}</p></div>
-                    <button class="btn btn-danger pull-right" @click="checkout"> Checkout</button>
+                    <button class="btn btn-danger pull-right" @click="checkOut"> Checkout</button>
                     <!--<p v-if="CheckoutStatus">{{ CheckoutStatus }}</p>-->
                 </div>
 
@@ -88,19 +89,20 @@
 
             incrementQty(cartProduct) {
 
-                if(cartProduct.cartQuantity<cartProduct.quantity){
-                    this.$store.dispatch('incrementCartItemQty', cartProduct).then(()=>{
+                if (cartProduct.cartQuantity < cartProduct.quantity) {
+                    this.$store.dispatch('incrementCartItemQty', cartProduct).then(() => {
                         this.$store.dispatch('incrementProductQty', cartProduct)
                     })
                 }
             },
             decreaseQty(cartProduct) {
-                if(cartProduct.cartQuantity>0){
+                if (cartProduct.cartQuantity > 0) {
                     this.$store.dispatch('decrementCartItemQty', cartProduct)
                 }
             },
-            checkout() {
-                alert('Pay us Kshs ' + this.total)
+
+            checkOut(cartProduct) {
+                this.$store.dispatch('checkout', cartProduct)
             }
         },
         filters: {
